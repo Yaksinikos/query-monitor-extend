@@ -24,7 +24,7 @@ class QMX_Output_Html_Constants extends QM_Output_Html {
 						echo '<tr>';
 
 							echo '<th scope="col" class="qm-num qm-sorted-asc qm-sortable-column">';
-								echo $this->build_sorter( __( '', 'query-monitor-extend' ) );
+								echo $this->build_sorter( '#' );
 							echo '</th>';
 
 							echo '<th scope="col" class="qm-sortable-column">';
