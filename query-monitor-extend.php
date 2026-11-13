@@ -14,12 +14,7 @@
 
 defined( 'WPINC' ) || die();
 
-if ( ! function_exists( 'get_plugin_data' ) ) {
-	require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
-
 defined( 'QMX_DISABLED' ) || define( 'QMX_DISABLED', false );
-define( 'QMX_TESTED_WITH_QM', get_plugin_data( __FILE__, false, false )['QM tested up to'] ?? '4.1.1' );
 
 if ( defined( 'QM_DISABLED' ) && constant( 'QM_DISABLED' ) ) {
 	return;
@@ -38,6 +33,21 @@ if ( defined( 'QMX_LOADED' ) ) {
 define( 'QMX_LOADED', __FILE__ );
 
 /**
+ * Filter: extra_plugin_headers
+ *
+ * Include the "QM tested up to" header in the plugin data that
+ * WordPress reads for the Plugins screen.
+ *
+ * @param string[] $headers
+ * @return string[]
+ */
+add_filter( 'extra_plugin_headers', static function ( array $headers ) : array {
+	$headers[] = 'QM tested up to';
+
+	return $headers;
+} );
+
+/**
  * Filter: plugin_row_meta
  *
  * - add "Tested up to" notice
@@ -45,25 +55,30 @@ define( 'QMX_LOADED', __FILE__ );
  *
  * @param array $meta
  * @param string $file
+ * @param array $plugin_data
  * @return string[]
  */
-add_filter( 'plugin_row_meta', static function ( array $meta, string $file ) : array {
+add_filter( 'plugin_row_meta', static function ( array $meta, string $file, array $plugin_data ) : array {
 	if ( 'query-monitor-extend/query-monitor-extend.php' !== $file ) {
 		return $meta;
 	}
 
-	$first = array_shift( $meta );
+	$tested_with_qm = $plugin_data['QM tested up to'] ?? '';
 
-	array_unshift(
-		$meta,
-		$first,
-		sprintf(
-			'Tested up to <a href="%1$s" rel="noopener noreferrer">Query Monitor</a> <a href="%2$s%3$s" rel="noopener noreferrer">%3$s</a>',
-			'https://wordpress.org/plugins/query-monitor/',
-			'https://github.com/johnbillion/query-monitor/releases/tag/',
-			constant( 'QMX_TESTED_WITH_QM' )
-		)
-	);
+	if ( '' !== $tested_with_qm ) {
+		$first = array_shift( $meta );
+
+		array_unshift(
+			$meta,
+			$first,
+			sprintf(
+				'Tested up to <a href="%1$s" rel="noopener noreferrer">Query Monitor</a> <a href="%2$s%3$s" rel="noopener noreferrer">%3$s</a>',
+				'https://wordpress.org/plugins/query-monitor/',
+				'https://github.com/johnbillion/query-monitor/releases/tag/',
+				esc_html( $tested_with_qm )
+			)
+		);
+	}
 
 	if ( class_exists( 'QueryMonitor' ) ) {
 		return $meta;
@@ -81,7 +96,7 @@ add_filter( 'plugin_row_meta', static function ( array $meta, string $file ) : a
 	);
 
 	return $meta;
-}, 10, 2 );
+}, 10, 3 );
 
 $dir = trailingslashit( __DIR__ );
 
