@@ -11,96 +11,104 @@
 # - Image Sizes
 # - Paths
 # - Time
+#
+# Requires the zip command. See "Building the zip files" in readme.md.
 
-rm -rf releases;
+if ! command -v zip > /dev/null 2>&1; then
+	echo "The zip command is required. See \"Building the zip files\" in readme.md.";
+	exit 1;
+fi
+
+rm -rf dist;
 
 echo "Making directories...";
 
-mkdir releases;
-mkdir releases/plugins;
-mkdir releases/mu-plugins;
-mkdir releases/plugins/query-monitor-extend;
-mkdir releases/mu-plugins/query-monitor-extend;
+mkdir dist;
+mkdir dist/plugins;
+mkdir dist/mu-plugins;
+mkdir dist/plugins/query-monitor-extend;
+mkdir dist/mu-plugins/query-monitor-extend;
 
 echo "Copying directories...";
 
 # ACF
-cp -r acf/ releases/plugins/query-monitor-extend/acf;
-cp -r acf/ releases/mu-plugins/query-monitor-extend/acf;
+cp -r acf/ dist/plugins/query-monitor-extend/acf;
+cp -r acf/ dist/mu-plugins/query-monitor-extend/acf;
 echo "- acf";
 
 # Constants
-cp -r constants/ releases/plugins/query-monitor-extend/constants;
-cp -r constants/ releases/mu-plugins/query-monitor-extend/constants;
+cp -r constants/ dist/plugins/query-monitor-extend/constants;
+cp -r constants/ dist/mu-plugins/query-monitor-extend/constants;
 echo "- constants";
 
 # Files
-cp -r files/ releases/plugins/query-monitor-extend/files;
-cp -r files/ releases/mu-plugins/query-monitor-extend/files;
+cp -r files/ dist/plugins/query-monitor-extend/files;
+cp -r files/ dist/mu-plugins/query-monitor-extend/files;
 echo "- files";
 
 # Globals: $_GET
-cp -r globals-get/ releases/plugins/query-monitor-extend/globals-get;
-cp -r globals-get/ releases/mu-plugins/query-monitor-extend/globals-get;
+cp -r globals-get/ dist/plugins/query-monitor-extend/globals-get;
+cp -r globals-get/ dist/mu-plugins/query-monitor-extend/globals-get;
 echo "- globals-get";
 
 # Globals: $_POST
-cp -r globals-post/ releases/plugins/query-monitor-extend/globals-post;
-cp -r globals-post/ releases/mu-plugins/query-monitor-extend/globals-post;
+cp -r globals-post/ dist/plugins/query-monitor-extend/globals-post;
+cp -r globals-post/ dist/mu-plugins/query-monitor-extend/globals-post;
 echo "- globals-post";
 
 # Globals: $_SERVER
-cp -r globals-server/ releases/plugins/query-monitor-extend/globals-server;
-cp -r globals-server/ releases/mu-plugins/query-monitor-extend/globals-server;
+cp -r globals-server/ dist/plugins/query-monitor-extend/globals-server;
+cp -r globals-server/ dist/mu-plugins/query-monitor-extend/globals-server;
 echo "- globals-server";
 
 # Heartbeat
-cp -r heartbeat/ releases/plugins/query-monitor-extend/heartbeat;
-cp -r heartbeat/ releases/mu-plugins/query-monitor-extend/heartbeat;
+cp -r heartbeat/ dist/plugins/query-monitor-extend/heartbeat;
+cp -r heartbeat/ dist/mu-plugins/query-monitor-extend/heartbeat;
 echo "- heartbeat";
 
 # Image Sizes
-cp -r image-sizes/ releases/plugins/query-monitor-extend/image-sizes;
-cp -r image-sizes/ releases/mu-plugins/query-monitor-extend/image-sizes;
+cp -r image-sizes/ dist/plugins/query-monitor-extend/image-sizes;
+cp -r image-sizes/ dist/mu-plugins/query-monitor-extend/image-sizes;
 echo "- image-sizes";
 
 # Paths
-cp -r paths/ releases/plugins/query-monitor-extend/paths;
-cp -r paths/ releases/mu-plugins/query-monitor-extend/paths;
+cp -r paths/ dist/plugins/query-monitor-extend/paths;
+cp -r paths/ dist/mu-plugins/query-monitor-extend/paths;
 echo "- paths";
 
 # Time
-cp -r time/ releases/plugins/query-monitor-extend/time;
-cp -r time/ releases/mu-plugins/query-monitor-extend/time;
+cp -r time/ dist/plugins/query-monitor-extend/time;
+cp -r time/ dist/mu-plugins/query-monitor-extend/time;
 echo "- time";
 
 echo "Copying files...";
 
 # Conditionals
-cp qmx-conditionals.php releases/plugins/query-monitor-extend/qmx-conditionals.php;
-cp qmx-conditionals.php releases/mu-plugins/query-monitor-extend/qmx-conditionals.php;
+cp qmx-conditionals.php dist/plugins/query-monitor-extend/qmx-conditionals.php;
+cp qmx-conditionals.php dist/mu-plugins/query-monitor-extend/qmx-conditionals.php;
 echo "- qmx-conditionals.php";
 
 # Plugin files
-cp query-monitor-extend.php releases/plugins/query-monitor-extend/query-monitor-extend.php;
-cp query-monitor-extend.php releases/mu-plugins/query-monitor-extend/query-monitor-extend.php;
-cp qmx-output-html-concerned-hooks.php releases/plugins/query-monitor-extend/qmx-output-html-concerned-hooks.php;
-cp qmx-output-html-concerned-hooks.php releases/mu-plugins/query-monitor-extend/qmx-output-html-concerned-hooks.php;
+cp query-monitor-extend.php dist/plugins/query-monitor-extend/query-monitor-extend.php;
+cp query-monitor-extend.php dist/mu-plugins/query-monitor-extend/query-monitor-extend.php;
+cp qmx-output-html-concerned-hooks.php dist/plugins/query-monitor-extend/qmx-output-html-concerned-hooks.php;
+cp qmx-output-html-concerned-hooks.php dist/mu-plugins/query-monitor-extend/qmx-output-html-concerned-hooks.php;
 echo "- query-monitor-extend.php";
 
 # Time hooks
-cp qmx-time-hooks.php releases/plugins/query-monitor-extend/qmx-time-hooks.php;
-cp qmx-time-hooks.php releases/mu-plugins/query-monitor-extend/qmx-time-hooks.php;
+cp qmx-time-hooks.php dist/plugins/query-monitor-extend/qmx-time-hooks.php;
+cp qmx-time-hooks.php dist/mu-plugins/query-monitor-extend/qmx-time-hooks.php;
 echo "- qmx-time-hooks.php";
 
 echo "Creating mu-plugin loader...";
 
-# Create file to load mu-plugin
-head -13 query-monitor-extend.php > releases/mu-plugins/load-qmx.php;
-echo "add_action( 'plugin_loaded', static function ( \$plugin ) : void {" >> releases/mu-plugins/load-qmx.php;
-echo "\tif ( trailingslashit( constant( 'WP_PLUGIN_DIR' ) ) . 'query-monitor/query-monitor.php' !== \$plugin ) {\n\t\treturn;\n\t}\n" >> releases/mu-plugins/load-qmx.php;
-echo "\trequire_once 'query-monitor-extend/query-monitor-extend.php';" >> releases/mu-plugins/load-qmx.php;
-echo "} );" >> releases/mu-plugins/load-qmx.php;
+# Create file to load mu-plugin.
+# Uses printf, as echo only expands "\t" and "\n" in some shells.
+head -13 query-monitor-extend.php > dist/mu-plugins/load-qmx.php;
+printf '%s\n' "add_action( 'plugin_loaded', static function ( \$plugin ) : void {" >> dist/mu-plugins/load-qmx.php;
+printf '\t%s\n\t\t%s\n\t%s\n\n' "if ( trailingslashit( constant( 'WP_PLUGIN_DIR' ) ) . 'query-monitor/query-monitor.php' !== \$plugin ) {" "return;" "}" >> dist/mu-plugins/load-qmx.php;
+printf '\t%s\n' "require_once 'query-monitor-extend/query-monitor-extend.php';" >> dist/mu-plugins/load-qmx.php;
+printf '%s\n' "} );" >> dist/mu-plugins/load-qmx.php;
 
 echo "";
 echo "Done copying files.";
@@ -109,7 +117,7 @@ echo "";
 echo "==========================================="
 echo "";
 
-ls -lR releases;
+ls -lR dist;
 
 echo "";
 echo "==========================================="
@@ -118,13 +126,13 @@ echo "";
 echo "Creating zips..."
 echo ""
 
-cd releases/plugins/;
+cd dist/plugins/;
 zip --test --display-bytes --display-counts -r "../plugin.zip" query-monitor-extend/;
 cd ../../;
 
 echo ""
 
-cd releases/;
+cd dist/;
 zip --test --display-bytes --display-counts -r "mu-plugin.zip" mu-plugins/;
 cd ../../;
 

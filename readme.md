@@ -36,6 +36,27 @@ See [Demos document](.github/demos.md) for more info.
 
 Recent [releases](https://github.com/crstauf/query-monitor-extend/releases) contain zip files for installation as a WordPress [plugin](https://github.com/crstauf/query-monitor-extend/releases/latest/download/plugin.zip) and [mu-plugin](https://github.com/crstauf/query-monitor-extend/releases/latest/download/mu-plugin.zip).
 
+### Building the zip files
+
+To build the zip files yourself, for example from a fork, run the release script from the plugin directory. It needs the `zip` command.
+
+```shell
+sh dev/create-release-files.sh
+```
+
+It creates `dist/plugin.zip` and `dist/mu-plugin.zip` from the files in your working copy, including uncommitted changes. The `dist` folder is ignored by git.
+
+Git Bash on Windows has no `zip` command, so run the script in a container instead. For example, in PowerShell with [Podman](https://podman.io/) (or Docker, with the same arguments):
+
+```shell
+podman run --rm -v "${PWD}:/app" -w /app docker.io/library/alpine:3.20 sh -c "apk add --no-cache zip > /dev/null && sh dev/create-release-files.sh"
+```
+
+To install:
+
+- **Plugin:** upload `plugin.zip` in the WordPress admin under Plugins > Add New Plugin > Upload Plugin, or extract it into `wp-content/plugins`.
+- **mu-plugin:** extract `mu-plugin.zip` into `wp-content`. It contains a `mu-plugins` folder with `load-qmx.php` and the `query-monitor-extend` folder. The loader runs Query Monitor Extend once Query Monitor is loaded as a regular plugin. It doesn't detect Query Monitor when it's network-activated on a multisite network; use the plugin zip there.
+
 ### Composer
 
 If you prefer to use [Composer](https://getcomposer.org/), you can install this package with the following command.
