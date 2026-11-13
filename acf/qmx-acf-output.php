@@ -86,7 +86,7 @@ class QMX_Output_Html_ACF extends QM_Output_Html {
 		echo $this->build_filter( 'acf-caller', array_keys( $data->callers ), __( 'Caller', 'query-monitor' ) );
 		echo '</th>';
 
-		echo '</tr>';
+		echo '</tr>' . "\n";
 
 		echo '</thead>';
 
@@ -150,7 +150,7 @@ class QMX_Output_Html_ACF extends QM_Output_Html {
 			$this->output_column_caller( $row );
 			echo '</td>';
 
-			echo '</tr>';
+			echo '</tr>' . "\n";
 		}
 
 		echo '</tbody>';
@@ -158,7 +158,7 @@ class QMX_Output_Html_ACF extends QM_Output_Html {
 		echo '<tfoot>';
 		echo '<tr>';
 		printf( '<td colspan="5">Total: %d</td>', count( $data->fields ) );
-		echo '</tr>';
+		echo '</tr>' . "\n";
 		echo '</tfoot>';
 
 		echo '</table>';

@@ -39,7 +39,7 @@ class QMX_Output_Html_Constants extends QM_Output_Html {
 								echo $this->build_sorter( __( 'Type', 'query-monitor-extend' ) );
 							echo '</th>';
 
-						echo '</tr>';
+						echo '</tr>' . "\n";
 					echo '</thead>';
 
 					echo '<tbody>';
@@ -53,7 +53,7 @@ class QMX_Output_Html_Constants extends QM_Output_Html {
 								echo '<td class="qm-ltr" data-qm-sort-weight="' . strtolower( esc_attr( $constant ) ) . '"><code style="user-select: all;">' . esc_html( $constant ) . '</code></td>';
 								echo '<td ' . ( is_bool( $value ) ? ' class="qm-' . $bools[ $value ] . '"' : '' ) . '>' . esc_html( (string) QM_Util::display_variable( $value ) ) . '</td>';
 								echo '<td class="qm-ltr">' . esc_html( gettype( $value ) ) . '</td>';
-							echo '</tr>';
+							echo '</tr>' . "\n";
 						}
 
 					echo '</tbody>';

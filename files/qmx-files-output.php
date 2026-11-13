@@ -83,7 +83,7 @@ class QMX_Output_Html_Files extends QM_Output_Html {
 								echo $this->build_filter( 'component', array_map( 'esc_attr', array_keys( $components ) ), __( 'Component', 'query-monitor-extend' ) );
 							echo '</th>';
 
-						echo '</tr>';
+						echo '</tr>' . "\n";
 					echo '</thead>';
 
 					echo '<tbody>';
@@ -117,7 +117,7 @@ class QMX_Output_Html_Files extends QM_Output_Html {
 								echo '</td>';
 
 								echo '<td>' . esc_html( $file['component']->name ) . '</td>';
-							echo '</tr>';
+							echo '</tr>' . "\n";
 						}
 
 					echo '</tbody>';
@@ -130,7 +130,7 @@ class QMX_Output_Html_Files extends QM_Output_Html {
 								'<span class="qm-items-number">' . esc_html( number_format_i18n( count( $data->files ) ) ) . '</span>'
 							);
 							echo '</td>';
-						echo '</tr>';
+						echo '</tr>' . "\n";
 
 						echo '<tr>';
 							echo '<td colspan="2">' .
@@ -143,7 +143,7 @@ class QMX_Output_Html_Files extends QM_Output_Html {
 							'</td>';
 							echo '<td>&#61;' . $this->human_file_size( $total_file_size ) . '</td>';
 							echo '<td>Components: ' . count( $components ) . '</td>';
-						echo '</tr>';
+						echo '</tr>' . "\n";
 
 					echo '</tfoot>';
 				echo '</table>';

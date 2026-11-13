@@ -40,7 +40,7 @@ class QMX_Output_Html_Heartbeat extends QM_Output_Html {
 							echo '<th scope="col">Time since previous</th>';
 							echo '<th scope="col">Duration</th>';
 
-						echo '</tr>';
+						echo '</tr>' . "\n";
 					echo '</thead>';
 
 					echo '<tbody>';
@@ -48,7 +48,7 @@ class QMX_Output_Html_Heartbeat extends QM_Output_Html {
 							echo '<td colspan="5">';
 								echo '<div class="qm-none"><p>Listening for first heartbeat...</p></div>';
 							echo '</td>';
-						echo '</tr>';
+						echo '</tr>' . "\n";
 					echo '</tbody>';
 
 				echo '</table>';

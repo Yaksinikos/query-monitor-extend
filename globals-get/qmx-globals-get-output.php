@@ -41,7 +41,7 @@ class QMX_Output_Html_Globals_Get extends QM_Output_Html {
 							echo __( 'Value', 'query-monitor-extend' );
 						echo '</th>';
 
-					echo '</tr>';
+					echo '</tr>' . "\n";
 				echo '</thead>';
 
 				echo '<tbody>';
@@ -58,7 +58,7 @@ class QMX_Output_Html_Globals_Get extends QM_Output_Html {
 							echo '<td class="qm-num">' . $i++ . '</td>';
 							echo '<td class="qm-ltr" data-qm-sort-weight="' . strtolower( esc_attr( $key ) ) . '"><code style="user-select: all;">' . esc_html( $key ) . '</code></td>';
 							echo '<td ' . ( is_bool( $value ) ? ' class="qm-' . $bools[ $value ] . '"' : '' ) . '>' . esc_html( (string) QM_Util::display_variable( $value ) ) . '</td>';
-						echo '</tr>';
+						echo '</tr>' . "\n";
 					}
 
 				echo '</tbody>';

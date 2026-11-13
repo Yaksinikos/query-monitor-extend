@@ -36,7 +36,7 @@ class QMX_Output_Html_Paths extends QM_Output_Html {
 								echo __( 'Path', 'query-monitor-extend' );
 							echo '</th>';
 
-						echo '</tr>';
+						echo '</tr>' . "\n";
 					echo '</thead>';
 
 					echo '<tbody>';
@@ -66,7 +66,7 @@ class QMX_Output_Html_Paths extends QM_Output_Html {
 									echo '</td>';
 
 								}
-							echo '</tr>';
+							echo '</tr>' . "\n";
 						}
 
 					echo '</tbody>';

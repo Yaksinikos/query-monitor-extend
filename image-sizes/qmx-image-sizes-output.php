@@ -62,7 +62,7 @@ class QMX_Output_Html_Image_Sizes extends QM_Output_Html {
 								echo $this->build_sorter( __( 'Source', 'query-monitor-extend' ) );
 							echo '</th>';
 
-						echo '</tr>';
+						echo '</tr>' . "\n";
 					echo '</thead>';
 
 					echo '<tbody>';
@@ -101,7 +101,7 @@ class QMX_Output_Html_Image_Sizes extends QM_Output_Html {
 								echo '<td class="qm-num" data-qmx-image-size-ratio="' . esc_attr( $row['ratio'] ) . '" data-qm-sort-weight="' . esc_attr( $row['ratio'] ) . '">' . esc_html( implode( ':', $ratio ) ) . '</td>';
 								echo '<td class="qm-num qm-true">' . ( $row['crop'] ? '<span class="dashicons dashicons-yes"></span>' : '' ) . '</td>';
 								echo '<td class="qm-ltr">' . esc_html( $row['source'] ) . '</td>';
-							echo '</tr>';
+							echo '</tr>' . "\n";
 
 							if ( ! array_key_exists( $row['source'], $sources ) ) {
 								$sources[ $row['source'] ] = 0;
@@ -127,7 +127,7 @@ class QMX_Output_Html_Image_Sizes extends QM_Output_Html {
 							echo '<td colspan="2">Duplicates: <span class="qm-items-number">' . esc_html( number_format_i18n( array_sum( $data->duplicates['dimensions'] ) ) ) . '</span></td>';
 							echo '<td colspan="2">Duplicates: <span class="qm-items-number">' . esc_html( number_format_i18n( array_sum( $data->duplicates['ratios'] ) ) ) . '</span></td>';
 							echo '<td>' . implode( ', ', $sources ) . '</td>';
-						echo '</tr>';
+						echo '</tr>' . "\n";
 
 					echo '</tfoot>';
 				echo '</table>';

@@ -37,7 +37,7 @@ class QMX_Output_Html_ACF_LoadedFieldGroups extends QM_Output_Html {
 		echo '<th scope="col">' . esc_html__( 'Field Group', 'query-monitor-extend' ) . '</th>';
 		echo '<th scope="col">' . esc_html__( 'Key', 'query-monitor-extend' ) . '</th>';
 		echo '<th scope="col">' . esc_html__( 'Rules', 'query-monitor-extend' ) . '</th>';
-		echo '</tr>';
+		echo '</tr>' . "\n";
 		echo '</thead>';
 
 		echo '<tbody>';
@@ -65,7 +65,7 @@ class QMX_Output_Html_ACF_LoadedFieldGroups extends QM_Output_Html {
 			$this->output_column_rules( $row );
 			echo '</td>';
 
-			echo '</tr>';
+			echo '</tr>' . "\n";
 
 			$row_num++;
 		}
@@ -75,7 +75,7 @@ class QMX_Output_Html_ACF_LoadedFieldGroups extends QM_Output_Html {
 		echo '<tfoot>';
 		echo '<tr>';
 		printf( '<td colspan="3">Total: %d</td>', count( $data->loaded_field_groups ) );
-		echo '</tr>';
+		echo '</tr>' . "\n";
 		echo '</tfoot>';
 
 		echo '</table>';

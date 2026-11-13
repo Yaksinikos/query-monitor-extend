@@ -38,7 +38,7 @@ class QMX_Output_Html_ACF_LocalJSON extends QM_Output_Html {
 		echo '<th scope="col">Action</th>';
 		echo '<th scope="col">Hook</th>';
 		echo '<th scope="col" colspan="2">Paths</th>';
-		echo '</tr>';
+		echo '</tr>' . "\n";
 		echo '</thead>';
 
 		echo '<tbody>';
@@ -49,7 +49,7 @@ class QMX_Output_Html_ACF_LocalJSON extends QM_Output_Html {
 			echo '<th scope="row">Save</th>';
 			echo '<td><code>acf/settings/save_json</code></td>';
 			echo '<td colspan="2">' . QM_Output_Html::output_filename( self::remove_abspath( $directory ), $directory ) . '</td>';
-			echo '</tr>';
+			echo '</tr>' . "\n";
 		}
 
 		if ( ! empty( $data->local_json['load'] ) ) {
@@ -66,7 +66,7 @@ class QMX_Output_Html_ACF_LocalJSON extends QM_Output_Html {
 				echo '<td class="qm-num">' . esc_html( (string) $i ) . '</td>';
 				echo '<td>' . QM_Output_Html::output_filename( self::remove_abspath( $path ), $path ) . '</td>';
 
-				echo '</tr>';
+				echo '</tr>' . "\n";
 
 				$i++;
 			}
@@ -103,7 +103,7 @@ class QMX_Output_Html_ACF_LocalJSON extends QM_Output_Html {
 		echo '<th scope="col">Title</th>';
 		echo '<th scope="col">Key</th>';
 		echo '<th scope="col">File</th>';
-		echo '</tr>';
+		echo '</tr>' . "\n";
 		echo '</thead>';
 		echo '<tbody>';
 
