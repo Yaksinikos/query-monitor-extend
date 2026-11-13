@@ -29,10 +29,14 @@ class QMX_Output_Html_Files extends QM_Output_Html {
 					'size' => 0
 				);
 
+				# Normalize, as paths use backslashes on Windows.
+				$abspath = untrailingslashit( wp_normalize_path( ABSPATH ) );
+
 				foreach ( $data->files as &$file ) {
 					$file['_path_components'] = array();
+					$relative_dir             = str_replace( $abspath, '', wp_normalize_path( dirname( $file['path'] ) ) );
 
-					foreach ( array_filter( explode( '/', str_replace( ABSPATH, '', dirname( $file['path'] ) ) ) ) as $path_component ) {
+					foreach ( array_filter( explode( '/', $relative_dir ) ) as $path_component ) {
 						$file['_path_components'][ $path_component ] = 1;
 						$path_components[ $path_component ]          = 1;
 

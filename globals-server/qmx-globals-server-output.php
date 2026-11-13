@@ -17,6 +17,11 @@ class QMX_Output_Html_Globals_Server extends QM_Output_Html {
 		$data = $this->collector->get_data();
 		$rows = $data->server ?: [];
 
+		# Match panel_menu(), which omits the panel when there's no data.
+		if ( empty( $rows ) ) {
+			return;
+		}
+
 		echo '<div class="qm" id="qm-global-server">';
 
 			echo '<table class="qm-sortable">';

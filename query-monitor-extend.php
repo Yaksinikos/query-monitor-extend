@@ -9,7 +9,7 @@
  * Update URI: false
  * Requires Plugins: query-monitor
  *
- * QM tested up to: 4.0.7
+ * QM tested up to: 4.1.1
  */
 
 defined( 'WPINC' ) || die();
@@ -19,7 +19,7 @@ if ( ! function_exists( 'get_plugin_data' ) ) {
 }
 
 defined( 'QMX_DISABLED' ) || define( 'QMX_DISABLED', false );
-define( 'QMX_TESTED_WITH_QM', get_plugin_data( __FILE__, false, false )['QM tested up to'] ?? '4.0.7' );
+define( 'QMX_TESTED_WITH_QM', get_plugin_data( __FILE__, false, false )['QM tested up to'] ?? '4.1.1' );
 
 if ( defined( 'QM_DISABLED' ) && constant( 'QM_DISABLED' ) ) {
 	return;

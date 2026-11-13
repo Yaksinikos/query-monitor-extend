@@ -17,6 +17,11 @@ class QMX_Output_Html_Globals_Post extends QM_Output_Html {
 		$data = $this->collector->get_data();
 		$rows = $data->post ?: [];
 
+		# Match panel_menu(), which omits the panel when there's no data.
+		if ( empty( $rows ) ) {
+			return;
+		}
+
 		echo '<div class="qm" id="qm-globals-post">';
 
 			echo '<table class="qm-sortable">';

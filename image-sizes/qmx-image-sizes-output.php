@@ -132,6 +132,8 @@ class QMX_Output_Html_Image_Sizes extends QM_Output_Html {
 					echo '</tfoot>';
 				echo '</table>';
 
+				$this->output_highlight_script();
+
 			} else {
 
 				echo '<div class="qm-none">';
@@ -146,6 +148,72 @@ class QMX_Output_Html_Image_Sizes extends QM_Output_Html {
 		$this->current_name = 'Image Sizes';
 
 		$this->output_concerns();
+	}
+
+	/**
+	 * Highlights the rows that share the hovered width, height, or ratio.
+	 *
+	 * Must be output directly after the table. The listeners are attached
+	 * to the table, so they keep working when Query Monitor moves the
+	 * panel into its shadow root.
+	 *
+	 * @return void
+	 */
+	protected function output_highlight_script() : void {
+		?>
+		<script type="text/javascript">
+			( function() {
+				var table = document.currentScript && document.currentScript.previousElementSibling;
+
+				if ( ! table || 'TABLE' !== table.tagName ) {
+					return;
+				}
+
+				var props = [ 'width', 'height', 'ratio' ];
+
+				function clearHighlight() {
+					table.querySelectorAll( '.qm-highlight' ).forEach( function( el ) {
+						el.classList.remove( 'qm-highlight' );
+					} );
+				}
+
+				table.addEventListener( 'mouseover', function( event ) {
+					var cell = event.target.closest( 'td' );
+
+					clearHighlight();
+
+					if ( ! cell || ! table.contains( cell ) ) {
+						return;
+					}
+
+					var attr = null;
+
+					props.forEach( function( prop ) {
+						if ( cell.hasAttribute( 'data-qmx-image-size-' + prop ) ) {
+							attr = 'data-qmx-image-size-' + prop;
+						}
+					} );
+
+					if ( ! attr ) {
+						return;
+					}
+
+					var value = cell.getAttribute( attr );
+					var row = cell.closest( 'tr' );
+
+					cell.classList.add( 'qm-highlight' );
+
+					table.querySelectorAll( 'tbody tr' ).forEach( function( tr ) {
+						if ( tr !== row && tr.getAttribute( attr ) === value ) {
+							tr.classList.add( 'qm-highlight' );
+						}
+					} );
+				} );
+
+				table.addEventListener( 'mouseleave', clearHighlight );
+			} )();
+		</script>
+		<?php
 	}
 
 	/**

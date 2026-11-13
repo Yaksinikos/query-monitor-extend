@@ -104,11 +104,15 @@ echo "Creating mu-plugin loader...";
 
 # Create file to load mu-plugin.
 # Uses printf, as echo only expands "\t" and "\n" in some shells.
+# Query Monitor fires plugin_loaded when activated on a site, and
+# network_plugin_loaded when network-activated.
 head -13 query-monitor-extend.php > dist/mu-plugins/load-qmx.php;
-printf '%s\n' "add_action( 'plugin_loaded', static function ( \$plugin ) : void {" >> dist/mu-plugins/load-qmx.php;
+printf '%s\n' "function qmx_load_after_query_monitor( string \$plugin ) : void {" >> dist/mu-plugins/load-qmx.php;
 printf '\t%s\n\t\t%s\n\t%s\n\n' "if ( trailingslashit( constant( 'WP_PLUGIN_DIR' ) ) . 'query-monitor/query-monitor.php' !== \$plugin ) {" "return;" "}" >> dist/mu-plugins/load-qmx.php;
 printf '\t%s\n' "require_once 'query-monitor-extend/query-monitor-extend.php';" >> dist/mu-plugins/load-qmx.php;
-printf '%s\n' "} );" >> dist/mu-plugins/load-qmx.php;
+printf '%s\n\n' "}" >> dist/mu-plugins/load-qmx.php;
+printf '%s\n' "add_action( 'plugin_loaded', 'qmx_load_after_query_monitor' );" >> dist/mu-plugins/load-qmx.php;
+printf '%s\n' "add_action( 'network_plugin_loaded', 'qmx_load_after_query_monitor' );" >> dist/mu-plugins/load-qmx.php;
 
 echo "";
 echo "Done copying files.";

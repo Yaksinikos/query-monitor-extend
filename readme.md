@@ -1,5 +1,5 @@
-![WP tested 6.6.1](https://img.shields.io/badge/WP-Tested_v6.6.1-blue)
-![QM tested up to 3.16.4](https://img.shields.io/badge/QM-Tested_v3.16.4-blue)
+![WP tested 7.1.4](https://img.shields.io/badge/WP-Tested_v7.1.4-blue)
+![QM tested up to 4.1.1](https://img.shields.io/badge/QM-Tested_v4.1.1-blue)
 ![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-blue)
 [![PHPCS](https://github.com/crstauf/query-monitor-extend/actions/workflows/phpcs.yml/badge.svg)](https://github.com/crstauf/query-monitor-extend/actions/workflows/phpcs.yml)
 [![PHPStan](https://github.com/crstauf/query-monitor-extend/actions/workflows/phpstan.yml/badge.svg)](https://github.com/crstauf/query-monitor-extend/actions/workflows/phpstan.yml)
@@ -55,7 +55,7 @@ podman run --rm -v "${PWD}:/app" -w /app docker.io/library/alpine:3.20 sh -c "ap
 To install:
 
 - **Plugin:** upload `plugin.zip` in the WordPress admin under Plugins > Add New Plugin > Upload Plugin, or extract it into `wp-content/plugins`.
-- **mu-plugin:** extract `mu-plugin.zip` into `wp-content`. It contains a `mu-plugins` folder with `load-qmx.php` and the `query-monitor-extend` folder. The loader runs Query Monitor Extend once Query Monitor is loaded as a regular plugin. It doesn't detect Query Monitor when it's network-activated on a multisite network; use the plugin zip there.
+- **mu-plugin:** extract `mu-plugin.zip` into `wp-content`. It contains a `mu-plugins` folder with `load-qmx.php` and the `query-monitor-extend` folder. The loader runs Query Monitor Extend once Query Monitor is loaded, whether Query Monitor is activated on a site or network-activated.
 
 ### Composer
 
